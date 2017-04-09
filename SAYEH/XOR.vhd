@@ -3,9 +3,9 @@ use ieee.std_logic_1164.all;
 
 entity XorComponent is
   port(
-    Rs : in std_logic_vector (15 downto 0);
-    Rd : in std_logic_vector (15 downto 0);
-    result : out std_logic_vector (15 downto 0)
+    Rs : in signed (15 downto 0);
+    Rd : in signed (15 downto 0);
+    result : out signed (15 downto 0)
   );
 end entity;
 

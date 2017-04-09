@@ -3,8 +3,8 @@ use ieee.std_logic_1164.all;
 
 entity ComparisonComponent is
   port(
-    Rs : in std_logic_vector (15 downto 0);
-    Rd : in std_logic_vector (15 downto 0);
+    Rs : in signed (15 downto 0);
+    Rd : in signed (15 downto 0);
     Carryflag : out std_logic;
     Zeroflag : out std_logic
   );

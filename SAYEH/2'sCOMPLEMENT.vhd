@@ -4,8 +4,8 @@ use ieee.std_logic_signed.all;
 
 entity TwoComplementComponent is
   port(
-    Rs : in std_logic_vector (15 downto 0);
-    result : out std_logic_vector (15 downto 0)
+    Rs : in signed (15 downto 0);
+    result : out signed (15 downto 0)
   );
 end entity;
 
