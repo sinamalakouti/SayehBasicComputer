@@ -78,8 +78,6 @@ port(
 end component;
 --  select number is 7
 component   SubtractionComponent is
-
-
   port(
     Rs : in signed (15 downto 0);
     Rd : in signed (15 downto 0);
