@@ -1,0 +1,38 @@
+library ieee;
+  use ieee.std_logic_1164.all;
+  use ieee.numeric_std.all;
+
+entity wptest is
+end entity;
+
+architecture test of wptest is
+  component WP is
+    port (
+      input : in std_logic_vector(5 downto 0);
+      clk : in std_logic;
+      WPadd : in std_logic;
+      WPreset : in std_logic;
+      output : out std_logic_vector(5 downto 0)
+    );
+  end component;
+  signal input : std_logic_vector(5 downto 0);
+  signal clk : std_logic;
+  signal WPadd : std_logic;
+  signal WPreset : std_logic;
+  signal output : std_logic_vector(5 downto 0);
+begin
+  wpt : WP port map (input <= input , clk <= clk , WPadd <= WPadd , WPreset <= WPreset , output <= output);
+  ClockGen: process
+    begin
+      while true loop
+          clk <= '0';
+            wait for 50 ns;
+            clk <= '1';
+            wait for 50 ns;
+        end loop;
+        wait;
+    end process ;
+  input <= "001011" , "100000" after 200 ns;
+  WPadd <= '1' , '0' after 300 ns;
+  WPreset <= '0' , '1' after 300 ns;
+end architecture;
