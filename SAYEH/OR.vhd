@@ -3,13 +3,21 @@ use ieee.std_logic_1164.all;
 
 entity OrComponent is
   port(
-    Rs : in signed (15 downto 0);
-    Rd : in signed (15 downto 0);
-    result : out signed (15 downto 0)
+    Rs : in std_logic_vector (15 downto 0);
+    Rd : in std_logic_vector (15 downto 0);
+    result : out std_logic_vector (15 downto 0);
+    Cout : out std_logic;
+    Zout : out std_logic
   );
 end entity;
 
 architecture RTL of OrComponent is
+  signal copy : std_logic_vector(15 downto 0);
   begin
-    result <= Rs or Rd;
+    copy <= Rs or Rd;
+    result <= copy;
+    Cout <= '0';
+    with copy select
+    Zout <= '1' when "0000000000000000",
+    '0' when others;
 end architecture;
