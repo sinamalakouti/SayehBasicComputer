@@ -14,7 +14,7 @@ entity ArithmeticUnit is
   Cout  : out std_logic;
   Zout  : out std_logic;
   --  z  is Zeroflag
-  AluOut_on_Databus : out std_logic_vector(15 downto 0)
+  output : out std_logic_vector(15 downto 0)
   );
 end entity;
 
@@ -120,6 +120,8 @@ port(
   );
 end component;
 
+-- B to output select number is 10
+
 type outputarray is array (0 to 15) of std_logic_vector(15 downto 0);
 type carryarray is array (0 to 15) of std_logic;
 type zeroarray is array (0 to 15) of std_logic;
@@ -142,7 +144,7 @@ begin
   multiply : MultiplierComponent port map (B(7 downto 0) , A(7 downto 0) , componentOutput (9) , componentCarry(9) , componentZero(9));
 
   with funcSelect select
-    AluOut_on_Databus <= componentOutput(0) when "0000",
+    output <= componentOutput(0) when "0000",
                          componentOutput(1) when "0001",
                          componentOutput(3) when "0011",
                          componentOutput(4) when "0100",
@@ -150,9 +152,10 @@ begin
                          componentOutput(6) when "0110",
                          componentOutput(7) when "0111",
                          componentOutput(8) when "1000",
-                         componentOutput(9) when "1001",  
+                         componentOutput(9) when "1001",
+                         B                  when "1010",
                          "0000000000000000" when others;
-                         
+
   with funcSelect select
     Cout <= componentCarry(0) when "0000",
                          componentCarry(1) when "0001",
@@ -163,7 +166,7 @@ begin
                          componentCarry(6) when "0110",
                          componentCarry(7) when "0111",
                          componentCarry(8) when "1000",
-                         componentCarry(9) when "1001",  
+                         componentCarry(9) when "1001",
                          '0' when others;
   with funcSelect select
     Zout <= componentZero(0) when "0000",
@@ -175,7 +178,7 @@ begin
                          componentZero(6) when "0110",
                          componentZero(7) when "0111",
                          componentZero(8) when "1000",
-                         componentZero(9) when "1001",  
+                         componentZero(9) when "1001",
                          '0' when others;
 
 end architecture;

@@ -7,8 +7,7 @@ entity WP is
   port (
     input : in std_logic_vector(5 downto 0);
     clk : in std_logic;
-    WPadd : in std_logic;
-    WPreset : in std_logic;
+    WPadd,WPreset : in std_logic;
     output : out std_logic_vector(5 downto 0)
   );
 end entity;
