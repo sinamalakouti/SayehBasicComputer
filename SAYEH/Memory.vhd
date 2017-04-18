@@ -1,17 +1,17 @@
-library IEEE;
+		library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-entity Memory is
+entity memory is
 	generic (blocksize : integer := 1024);
 
 	port (
-		clk, ReadMem, WriteMem : in std_logic;
-		AddressBus: in std_logic_vector (15 downto 0);
-		DataBus : inout std_logic_vector (15 downto 0);
+		clk, readmem, writemem : in std_logic;
+		addressbus: in std_logic_vector (15 downto 0);
+		databus : inout std_logic_vector (15 downto 0);
 		memdataready : out std_logic
 		);
-end entity;
+end entity memory;
 
 architecture behavioral of memory is
 	type mem is array (0 to blocksize - 1) of std_logic_vector (15 downto 0);
@@ -27,6 +27,7 @@ begin
 			init := false;
 		end if;
 
+		databus <= (others => 'Z');
 		memdataready <= '0';
 
 		if  clk'event and clk = '1' then
@@ -44,8 +45,7 @@ begin
 				if ad < blocksize then
 					buffermem(ad) := databus;
 				end if;
-			elsif readmem = '0' then
-				databus <= (others => 'Z');
+
 			end if;
 		end if;
 	end process;
