@@ -23,7 +23,7 @@ architecture RTL of regFile is
   begin
  process (clk)
    begin
-     if (clk'event and clk = '1') then
+     if (clk'event a1
        write(0) <= RFHwrite;
        write(1) <= RFLwrite;
        c1 : case write is
