@@ -123,7 +123,7 @@ begin
 
       if (Rs_on_AddressUnitRSide = '1') then
         AddressUnitRsideBus <= RFRight;
-      elsif (Rd_on_AddressUnitRSide = '1') then
+      else (Rd_on_AddressUnitRSide = '1') then
         AddressUnitRsideBus <= RFLeft;
       end if;
 

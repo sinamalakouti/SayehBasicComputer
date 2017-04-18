@@ -129,7 +129,6 @@ type zeroarray is array (0 to 15) of std_logic;
 signal componentOutput : outputarray;
 signal componentCarry : carryarray;
 signal componentZero : zeroarray;
-signal output : std_logic_vector(15 downto 0);
 
 begin
   AddC : AdditionComponent port map (B , A , Cin , componentOutput(0) , componentCarry(0), componentZero(0));
