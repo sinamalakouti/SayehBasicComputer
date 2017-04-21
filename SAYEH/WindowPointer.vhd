@@ -18,10 +18,11 @@ begin
   process(clk)
   begin
     if(clk'event and clk = '1') then
-      if(WPadd = '1') then output <= saveFormerWP + input; saveFormerWP <= saveFormerWP + input;
+      if(WPadd = '1') then saveFormerWP <= saveFormerWP + input;
     end if;
-      if(WPreset = '1') then output <= "000000"; saveFormerWP <= "000000";
+      if(WPreset = '1') then saveFormerWP <= "000000";
     end if;
   end if;
   end process;
+   output <= saveFormerWP;
 end architecture;

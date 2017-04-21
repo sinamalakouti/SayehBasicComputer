@@ -16,6 +16,8 @@ entity DP is
     Rs_on_AddressUnitRSide, Rd_on_AddressUnitRSide : in std_logic;
     Address_on_DataBus : in std_logic;
     inputFromMemory : in std_logic_vector(15 downto 0);
+    ReadMem, WriteMem : in std_logic;
+
     outputToMemory : out std_logic_vector(15 downto 0);
     Cout : out std_logic;
     Zout : out std_logic;
@@ -117,30 +119,17 @@ begin
   freg : FlagsReg port map (clk, ALUCout,ALUZout,Cset,Creset,Zset,Zreset,SRload , FRegCout , FregZout);
   alu : ArithmeticUnit port map (RFLeft , RFRight , funcSelect , FRegCout , FregZout , ALUCout , ALUZout , ALUout);
 
-  process(clk)
-  begin
-    if (clk'event and clk = '1') then
+    databus <= inputFromMemory when ReadMem = '1' else ALUout when AluOut_on_Databus = '1'
+      else AUout when Address_on_DataBus = '1' else "ZZZZZZZZZZZZZZZZ";
 
-      if (Rs_on_AddressUnitRSide = '1') then
-        AddressUnitRsideBus <= RFRight;
-      elsif (Rd_on_AddressUnitRSide = '1') then
-        AddressUnitRsideBus <= RFLeft;
-      end if;
+    AddressUnitRsideBus <= RFRight when Rs_on_AddressUnitRSide = '1'
+      else RFLeft when Rd_on_AddressUnitRSide = '1' else "0000000000000000";
 
-        if(AluOut_on_Databus = '1') then
-          DataBus <= ALUout;
-        elsif (Address_on_DataBus = '1') then
-          DataBus <= AUout;
-        else
-          DataBus <= inputFromMemory;
-      end if;
-
-      outputToMemory <= DataBus;
       Cout <= FRegCout;
       Zout <= FregZout;
+
+      outputToMemory <= DataBus when WriteMem = '1' else "ZZZZZZZZZZZZZZZZ";
       addressUnitOutputToMemory <= AUout;
       IR_output_to_controller <= IRout;
 
-    end if;
-  end process;
 end architecture;

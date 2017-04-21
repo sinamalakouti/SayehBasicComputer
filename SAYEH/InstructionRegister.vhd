@@ -16,8 +16,9 @@ begin
   process(clk)
   begin
       if(clk'event and clk = '1') then
-        if(IRload = '1') then output <= input;
-      end if;
+        if(IRload = '1') then
+        output <= input;
+        end if;
       end if;
   end process;
 end architecture;

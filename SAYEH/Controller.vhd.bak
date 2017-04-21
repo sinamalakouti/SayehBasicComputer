@@ -33,7 +33,7 @@ architecture rtl of controller is
 
 	type state is (S_reset, S_firstFetch,S_secondFetch,S_waitBeforeDecode ,S_decode, S_updatePC, S_halt , S_and , S_or , S_not ,
 	 S_shiftleft , S_shiftright , S_add , S_subtraction , S_multiply , S_comparison ,S_noOperation, S_setZFlag,
-	  S_clearZflag, S_setCarryFlag , S_clearCarryFlag, S_clearWindowPointer, S_moveRegister, S_loadAddress ,S_loadAddress2, S_storeAdress, S_moveImmidiateLow,
+	  S_clearZflag, S_setCarryFlag , S_clearCarryFlag, S_clearWindowPointer, S_moveRegister, S_loadAddress, S_storeAdress, S_moveImmidiateLow,
 		S_moveImmidiateHigh, S_savePC, S_jumpAddress, S_jumpRelative, S_brachIfZero, S_brachIfCarry, S_addWindowPointer);
 
   signal current_state : state := S_reset;
@@ -357,11 +357,6 @@ begin
 				PCplus1 <= '1';
 				next_state <= S_firstFetch;
 			when  S_multiply =>
-				funcSelect <= "1001";
-				SRload <= '1';
-				ALUOut_on_DataBus <= '1';
-				RFLwrite <= '1';
-				RFHwrite <= '1';
 				EnablePC <= '1';
 				PCplus1 <= '1';
 				next_state <= S_firstFetch;

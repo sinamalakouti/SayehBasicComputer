@@ -8,17 +8,16 @@ entity regFile is
     wp : in std_logic_vector(5 downto 0);
     selectR : in std_logic_vector(3 downto 0);
     clk: in std_logic;
-    RFLwrite : in std_logic;
-    RFHwrite : in std_logic;
+    RFLwrite,RFHwrite : in std_logic;
     Rs : out std_logic_vector(15 downto 0);
     Rd : out std_logic_vector(15 downto 0)
   );
 end entity;
 
-architecture RTL of Question2 is
+architecture RTL of regFile is
 
-  type registerFile is array (0 to 63) of std_logic_vector(16 downto 0);
-  signal reg: registerFile;
+  type registerFile is array (0 to 63) of std_logic_vector(15 downto 0);
+  signal reg: registerFile <= (others => "1100000011001111");
   signal write : std_logic_vector(1 downto 0);
 
   begin
@@ -35,8 +34,8 @@ architecture RTL of Question2 is
         when "11" => reg(to_integer (unsigned (wp)) + to_integer (unsigned (selectR(3 downto 2)))) <= input;
         when others => null;
    end case ;
-      Rd <= reg(to_integer (unsigned (wp)) + to_integer (unsigned (selectR(3 downto 2))));
-      Rs <= reg(to_integer (unsigned (wp)) + to_integer (unsigned (selectR(1 downto 0))));
      end if;
  end process;
+   Rd <= reg(to_integer (unsigned (wp)) + to_integer (unsigned (selectR(3 downto 2))));
+   Rs <= reg(to_integer (unsigned (wp)) + to_integer (unsigned (selectR(1 downto 0))));
 end architecture;

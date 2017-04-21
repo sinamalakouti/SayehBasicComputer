@@ -11,6 +11,7 @@ end entity;
 architecture arch of CPU is
   component memory is
     generic (blocksize : integer := 1024);
+
   	port (
   		clk, ReadMem, WriteMem : in std_logic;
   		AddressBus: in std_logic_vector (15 downto 0);
@@ -34,12 +35,9 @@ architecture arch of CPU is
     signal sayehAddressUnitOutputToMemory : std_logic_vector(15 downto 0);
     signal sayehMemDataReady : std_logic;
     signal sayehDataBus : std_logic_vector(15 downto 0);
-    signal temp : std_logic_vector(15 downto 0);
-    signal temp2 : std_logic_vector(15 downto 0);
 
 begin
+  sayehDataBus <= DataBus;
   mem : Memory port map(clk,memReadMem,memWriteMem,sayehAddressUnitOutputToMemory,sayehDataBus,sayehMemDataReady);
   sa : Sayeh port map(clk,sayehMemDataReady,memReadMem,memWriteMem,External_Reset,sayehDataBus,sayehDataBus,sayehAddressUnitOutputToMemory);
-  --  temp <= sayehDataBus;
-  -- sayehDataBus <= temp2;
 end architecture;

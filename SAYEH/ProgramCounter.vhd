@@ -12,7 +12,6 @@ entity PC is
 end entity;
 
 architecture dataflow of PC is
-
 begin
   process(clk)
   begin

@@ -110,17 +110,28 @@ component XorComponent  is
 end component;
 
 --  select number is 9
-component MultiplierComponent is
-port(
-    Rs : in std_logic_vector(7 downto 0);
-    Rd: in std_logic_vector(7 downto 0);
-    result: out std_logic_vector(15 downto 0);
-    Cout : out std_logic;
-    Zout : out std_logic
-  );
+component multiply is
+ port (
+ x : in std_logic_vector(7 downto 0);
+ y : in std_logic_vector(7 downto 0);
+ result : out std_logic_vector(15 downto 0);
+ Cout : out std_logic;
+ Zout : out std_logic
+ );
+
 end component;
 
 -- B to output select number is 10
+
+-- select number is 11
+component NotComponent is
+  port(
+  input : in std_logic_vector(15 downto 0);
+  output : out std_logic_vector(15 downto 0);
+  Cout : out std_logic;
+  Zout : out std_logic
+);
+end component;
 
 type outputarray is array (0 to 15) of std_logic_vector(15 downto 0);
 type carryarray is array (0 to 15) of std_logic;
@@ -140,7 +151,8 @@ begin
   shiftRight : ShiftRightComponent port map (B , componentOutput(6), componentCarry(6) , componentZero(6));
   subtraction : SubtractionComponent port map (B , A , Cin, componentOutput(7),componentCarry(7) , componentZero(7));
   xorC : XorComponent port map(B , A, componentOutput(8),componentCarry(8) , componentZero(8));
-  multiply : MultiplierComponent port map (B(7 downto 0) , A(7 downto 0) , componentOutput (9) , componentCarry(9) , componentZero(9));
+  multiply : multiply port map (B(7 downto 0) , A(7 downto 0) , componentOutput (9) , componentCarry(9) , componentZero(9));
+  notC : NotComponent port map (B,componentOutput(11),componentCarry(11),componentZero(11));
 
   with funcSelect select
     output <= componentOutput(0) when "0000",
@@ -153,6 +165,7 @@ begin
                          componentOutput(8) when "1000",
                          componentOutput(9) when "1001",
                          B                  when "1010",
+                         componentOutput(11) when "1011",
                          "0000000000000000" when others;
 
   with funcSelect select
