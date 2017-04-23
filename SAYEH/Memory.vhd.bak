@@ -23,22 +23,23 @@ begin
 	begin
 		if init = true then
 			-- some initiation
-			buffermem(0) := "0000000000000110";
+			buffermem(0) := "1101001011001101";
 
--- mil r0, 01011101
-buffermem(1) := "1111000001011101";
+      -- mil r0, 01011101
+      buffermem(1) := "1000010010101010";
 
--- mih r0, 00000101
-buffermem(2) := "1111000100000101";
+      -- mih r0, 00000101
+      buffermem(2) := "1111	110000000001";
 
--- mil r1, 00000001
-buffermem(3) := "1111010000000001";
 
--- mih r1, 00000000
-buffermem(4) := "1111010100000000";
+      -- mil r1, 00000001
+      buffermem(3) := "0000101000000010";
 
--- add r1, r0
-buffermem(5) := "0000000010110100";
+      -- mih r1, 00000000
+      buffermem(4) := "1111110100000111";
+
+      -- add r1, r0
+      buffermem(5) := "1101001011001101";
 			init := false;
 		end if;
 

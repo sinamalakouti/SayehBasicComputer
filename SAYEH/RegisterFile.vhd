@@ -17,7 +17,7 @@ end entity;
 architecture RTL of regFile is
 
   type registerFile is array (0 to 63) of std_logic_vector(15 downto 0);
-  signal reg: registerFile := (others => "1100000011001111");
+  signal reg: registerFile := (others => "0000000000000010");
 
   begin
     Rd <= reg(to_integer (unsigned (wp)) + to_integer (unsigned (selectR(3 downto 2))));

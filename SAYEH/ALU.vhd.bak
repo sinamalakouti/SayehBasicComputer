@@ -110,20 +110,22 @@ component XorComponent  is
 end component;
 
 --  select number is 9
-component MultiplierComponent is
-port(
-    Rs : in std_logic_vector(7 downto 0);
-    Rd: in std_logic_vector(7 downto 0);
-    result: out std_logic_vector(15 downto 0);
-    Cout : out std_logic;
-    Zout : out std_logic
-  );
+component multiply is
+ port (
+ x : in std_logic_vector(7 downto 0);
+ y : in std_logic_vector(7 downto 0);
+ result : out std_logic_vector(15 downto 0);
+ Cout : out std_logic;
+ Zout : out std_logic
+ );
+
 end component;
 
 -- B to output select number is 10
 
 -- select number is 11
 component NotComponent is
+  port(
   input : in std_logic_vector(15 downto 0);
   output : out std_logic_vector(15 downto 0);
   Cout : out std_logic;
@@ -149,7 +151,7 @@ begin
   shiftRight : ShiftRightComponent port map (B , componentOutput(6), componentCarry(6) , componentZero(6));
   subtraction : SubtractionComponent port map (B , A , Cin, componentOutput(7),componentCarry(7) , componentZero(7));
   xorC : XorComponent port map(B , A, componentOutput(8),componentCarry(8) , componentZero(8));
-  multiply : MultiplierComponent port map (B(7 downto 0) , A(7 downto 0) , componentOutput (9) , componentCarry(9) , componentZero(9));
+  multiply : multiply port map (B(7 downto 0) , A(7 downto 0) , componentOutput (9) , componentCarry(9) , componentZero(9));
   notC : NotComponent port map (B,componentOutput(11),componentCarry(11),componentZero(11));
 
   with funcSelect select

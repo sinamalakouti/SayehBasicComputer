@@ -366,6 +366,7 @@ begin
 				PCplus1 <= '1';
 				next_state <= S_firstFetch;
 			when  S_comparison =>
+				funcSelect <= "0010";
 				RFLwrite <= '1';
 				RFHwrite <= '1';
 				EnablePC <= '1';

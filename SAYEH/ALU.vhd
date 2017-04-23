@@ -151,7 +151,7 @@ begin
   shiftRight : ShiftRightComponent port map (B , componentOutput(6), componentCarry(6) , componentZero(6));
   subtraction : SubtractionComponent port map (B , A , Cin, componentOutput(7),componentCarry(7) , componentZero(7));
   xorC : XorComponent port map(B , A, componentOutput(8),componentCarry(8) , componentZero(8));
-  multiply : multiply port map (B(7 downto 0) , A(7 downto 0) , componentOutput (9) , componentCarry(9) , componentZero(9));
+  multiplier : multiply port map (B(7 downto 0) , A(7 downto 0) , componentOutput (9) , componentCarry(9) , componentZero(9));
   notC : NotComponent port map (B,componentOutput(11),componentCarry(11),componentZero(11));
 
   with funcSelect select
